@@ -1,27 +1,20 @@
 import { v4 as uuid } from "uuid";
-import { IEntity, IEntityBaseOptions, IEntityEvent } from "../typing";
+import { IEntity, IEntityAttributes, IEntityBaseOptions, IEntityEvent } from "../typing";
 
-export abstract class EntityBase implements IEntity {
-  protected _id: string;
-  protected _created: Date;
+export abstract class EntityBase<Attributes extends IEntityAttributes> implements IEntity {
+  public readonly id: string;
+  public readonly created: Date;
+  public readonly events: Array<IEntityEvent>;
   protected _updated: Date;
-  protected _events: Array<IEntityEvent>;
   protected _version: number;
 
   protected constructor(options: IEntityBaseOptions = {}) {
-    this._id = options.id || uuid();
-    this._created = options.created || new Date();
+    this.id = options.id || uuid();
+    this.created = options.created || new Date();
+    this.events = options.events || [];
+
     this._updated = options.updated || new Date();
-    this._events = options.events || [];
     this._version = options.version || 0;
-  }
-
-  public get id(): string {
-    return this._id;
-  }
-
-  public get created(): Date {
-    return this._created;
   }
 
   public get updated(): Date {
@@ -29,10 +22,6 @@ export abstract class EntityBase implements IEntity {
   }
   public set updated(updated: Date) {
     this._updated = updated;
-  }
-
-  public get events(): Array<IEntityEvent> {
-    return this._events;
   }
 
   public get version(): number {
@@ -44,8 +33,14 @@ export abstract class EntityBase implements IEntity {
 
   public abstract create(): void;
 
+  public abstract getKey(): string;
+
+  public abstract schemaValidation(): Promise<void>;
+
+  public abstract toJSON(): Attributes;
+
   protected addEvent(name: string, payload: Record<string, any>): void {
-    this._events.push({
+    this.events.push({
       name,
       payload,
       date: new Date(),

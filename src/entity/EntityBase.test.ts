@@ -6,14 +6,33 @@ jest.mock("uuid", () => ({
   v4: () => "e397bc49-849e-4df6-a536-7b9fa3574ace",
 }));
 
-MockDate.set("2020-01-01 08:00:00.000");
+MockDate.set("2020-01-01T08:00:00.000Z");
 
-class Entity extends EntityBase {
+class Entity extends EntityBase<any> {
   constructor(options: IEntityBaseOptions) {
     super(options);
   }
+
   create() {
     this.addEvent("created", { created: true });
+  }
+
+  getKey() {
+    return this.id;
+  }
+
+  async schemaValidation() {
+    return undefined;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      created: this.created,
+      events: this.events,
+      updated: this.updated,
+      version: this.version,
+    };
   }
 }
 
@@ -21,41 +40,31 @@ describe("EntityBase.ts", () => {
   let entity: Entity;
 
   beforeEach(() => {
-    const date = new Date("2020-01-01 08:00:00.000");
     entity = new Entity({
-      created: date,
-      updated: date,
+      created: new Date("2020-01-01T07:00:00.000Z"),
+      updated: new Date("2020-01-01T09:00:00.000Z"),
       events: [
         {
           name: "before",
           payload: { payload: true },
-          date: date,
+          date: new Date("2020-01-01T08:00:00.000Z"),
         },
       ],
     });
   });
 
-  test("should have all data", () => {
-    expect(entity).toMatchSnapshot();
-  });
-
-  test("should create", () => {
-    entity.create();
-    expect(entity).toMatchSnapshot();
-  });
-
   test("should get id", () => {
-    expect(entity.id).toMatchSnapshot();
+    expect(entity.id).toBe("e397bc49-849e-4df6-a536-7b9fa3574ace");
   });
 
   test("should get created", () => {
-    expect(entity.created).toMatchSnapshot();
+    expect(entity.created).toStrictEqual(new Date("2020-01-01T07:00:00.000Z"));
   });
 
   test("should get/set updated", () => {
-    expect(entity.created).toMatchSnapshot();
-    entity.updated = new Date("2021-01-01 00:00:01");
-    expect(entity.updated).toMatchSnapshot();
+    expect(entity.updated).toStrictEqual(new Date("2020-01-01T09:00:00.000Z"));
+    entity.updated = new Date("2021-01-01T00:00:01.000Z");
+    expect(entity.updated).toStrictEqual(new Date("2021-01-01T00:00:01.000Z"));
   });
 
   test("should get events", () => {
@@ -63,8 +72,25 @@ describe("EntityBase.ts", () => {
   });
 
   test("should get/set version", () => {
-    expect(entity.version).toMatchSnapshot();
+    expect(entity.version).toBe(0);
     entity.version = 99;
-    expect(entity.version).toMatchSnapshot();
+    expect(entity.version).toBe(99);
+  });
+
+  test("should create", () => {
+    entity.create();
+    expect(entity.events).toMatchSnapshot();
+  });
+
+  test("should return key", () => {
+    expect(entity.getKey()).toBe("e397bc49-849e-4df6-a536-7b9fa3574ace");
+  });
+
+  test("should validate schema", async () => {
+    await expect(entity.schemaValidation()).resolves.toBeUndefined();
+  });
+
+  test("should return to json", () => {
+    expect(entity.toJSON()).toMatchSnapshot();
   });
 });

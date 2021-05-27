@@ -1,36 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EntityBase.ts should create 1`] = `
-Entity {
-  "_created": 2020-01-01T07:00:00.000Z,
-  "_events": Array [
-    Object {
-      "date": 2020-01-01T07:00:00.000Z,
-      "name": "before",
-      "payload": Object {
-        "payload": true,
-      },
+Array [
+  Object {
+    "date": 2020-01-01T08:00:00.000Z,
+    "name": "before",
+    "payload": Object {
+      "payload": true,
     },
-    Object {
-      "date": 2020-01-01T07:00:00.000Z,
-      "name": "created",
-      "payload": Object {
-        "created": true,
-      },
+  },
+  Object {
+    "date": 2020-01-01T08:00:00.000Z,
+    "name": "created",
+    "payload": Object {
+      "created": true,
     },
-  ],
-  "_id": "e397bc49-849e-4df6-a536-7b9fa3574ace",
-  "_updated": 2020-01-01T07:00:00.000Z,
-  "_version": 0,
-}
+  },
+]
 `;
-
-exports[`EntityBase.ts should get created 1`] = `2020-01-01T07:00:00.000Z`;
 
 exports[`EntityBase.ts should get events 1`] = `
 Array [
   Object {
-    "date": 2020-01-01T07:00:00.000Z,
+    "date": 2020-01-01T08:00:00.000Z,
     "name": "before",
     "payload": Object {
       "payload": true,
@@ -39,30 +31,20 @@ Array [
 ]
 `;
 
-exports[`EntityBase.ts should get id 1`] = `"e397bc49-849e-4df6-a536-7b9fa3574ace"`;
-
-exports[`EntityBase.ts should get/set updated 1`] = `2020-01-01T07:00:00.000Z`;
-
-exports[`EntityBase.ts should get/set updated 2`] = `2020-12-31T23:00:01.000Z`;
-
-exports[`EntityBase.ts should get/set version 1`] = `0`;
-
-exports[`EntityBase.ts should get/set version 2`] = `99`;
-
-exports[`EntityBase.ts should have all data 1`] = `
-Entity {
-  "_created": 2020-01-01T07:00:00.000Z,
-  "_events": Array [
+exports[`EntityBase.ts should return to json 1`] = `
+Object {
+  "created": 2020-01-01T07:00:00.000Z,
+  "events": Array [
     Object {
-      "date": 2020-01-01T07:00:00.000Z,
+      "date": 2020-01-01T08:00:00.000Z,
       "name": "before",
       "payload": Object {
         "payload": true,
       },
     },
   ],
-  "_id": "e397bc49-849e-4df6-a536-7b9fa3574ace",
-  "_updated": 2020-01-01T07:00:00.000Z,
-  "_version": 0,
+  "id": "e397bc49-849e-4df6-a536-7b9fa3574ace",
+  "updated": 2020-01-01T09:00:00.000Z,
+  "version": 0,
 }
 `;
