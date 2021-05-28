@@ -109,6 +109,14 @@ describe("EntityBase", () => {
     await expect(entity.schemaValidation()).resolves.toMatchSnapshot();
   });
 
+  test("should throw when schema is invalid", async () => {
+    const entity = new TestEntity({
+      id: "uuid",
+      name: "name",
+    });
+    await expect(entity.schemaValidation()).rejects.toThrow(Joi.ValidationError);
+  });
+
   test("should return to json", () => {
     expect(entity.toJSON()).toMatchSnapshot();
   });
