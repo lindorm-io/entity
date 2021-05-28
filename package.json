@@ -31,9 +31,11 @@
     "test": "npm run test:unit",
     "test:clear": "jest --clearCache",
     "test:unit": "jest --config jest.config.js --",
+    "test:unit:watch": "jest --config jest.config.js --",
     "test:update": "jest --updateSnapshot",
-    "test:watch": "jest --config jest.config.js --watch --",
+    "test:watch": "npm run test:unit:watch",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "typecheck:watch": "tsc -p tsconfig.json --noEmit --watch",
     "update": "ncu -u && npm install",
     "validate": "npm run test:clear && npm run lint && npm run typecheck && npm test"
   },
