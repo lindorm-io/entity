@@ -1,23 +1,23 @@
+export interface IEntityEvent {
+  name: string;
+  payload: Record<string, any>;
+  date: Date;
+}
+
 export interface IEntityAttributes {
   id: string;
   created: Date;
-  events?: Array<IEntityEvent>;
+  events: Array<IEntityEvent>;
   updated: Date;
   version: number;
 }
 
-export interface IEntityBaseOptions {
+export interface IEntityOptions {
   id?: string;
   created?: Date;
   events?: Array<IEntityEvent>;
   updated?: Date;
   version?: number;
-}
-
-export interface IEntityEvent {
-  name: string;
-  payload: Record<string, any>;
-  date: Date;
 }
 
 export interface IEntity extends IEntityAttributes {

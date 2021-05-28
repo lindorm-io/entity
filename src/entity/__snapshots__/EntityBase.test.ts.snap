@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EntityBase.ts should create 1`] = `
+exports[`EntityBase should create 1`] = `
 Array [
   Object {
     "date": 2020-01-01T08:00:00.000Z,
@@ -10,7 +10,7 @@ Array [
     },
   },
   Object {
-    "date": 2020-01-01T08:00:00.000Z,
+    "date": 2020-01-01T10:00:00.000Z,
     "name": "created",
     "payload": Object {
       "created": true,
@@ -19,7 +19,7 @@ Array [
 ]
 `;
 
-exports[`EntityBase.ts should get events 1`] = `
+exports[`EntityBase should get events 1`] = `
 Array [
   Object {
     "date": 2020-01-01T08:00:00.000Z,
@@ -31,7 +31,7 @@ Array [
 ]
 `;
 
-exports[`EntityBase.ts should return to json 1`] = `
+exports[`EntityBase should return to json 1`] = `
 Object {
   "created": 2020-01-01T07:00:00.000Z,
   "events": Array [
@@ -44,6 +44,26 @@ Object {
     },
   ],
   "id": "e397bc49-849e-4df6-a536-7b9fa3574ace",
+  "name": "name",
+  "updated": 2020-01-01T09:00:00.000Z,
+  "version": 0,
+}
+`;
+
+exports[`EntityBase should validate schema 1`] = `
+Object {
+  "created": 2020-01-01T07:00:00.000Z,
+  "events": Array [
+    Object {
+      "date": 2020-01-01T08:00:00.000Z,
+      "name": "before",
+      "payload": Object {
+        "payload": true,
+      },
+    },
+  ],
+  "id": "e397bc49-849e-4df6-a536-7b9fa3574ace",
+  "name": "name",
   "updated": 2020-01-01T09:00:00.000Z,
   "version": 0,
 }

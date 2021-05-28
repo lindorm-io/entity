@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { IEntity, IEntityAttributes, IEntityBaseOptions, IEntityEvent } from "../typing";
+import { IEntity, IEntityAttributes, IEntityOptions, IEntityEvent } from "../typing";
 
 export abstract class EntityBase<Attributes extends IEntityAttributes> implements IEntity {
   public readonly id: string;
@@ -8,7 +8,7 @@ export abstract class EntityBase<Attributes extends IEntityAttributes> implement
   protected _updated: Date;
   protected _version: number;
 
-  protected constructor(options: IEntityBaseOptions = {}) {
+  protected constructor(options: IEntityOptions = {}) {
     this.id = options.id || uuid();
     this.created = options.created || new Date();
     this.events = options.events || [];
@@ -38,6 +38,16 @@ export abstract class EntityBase<Attributes extends IEntityAttributes> implement
   public abstract schemaValidation(): Promise<void>;
 
   public abstract toJSON(): Attributes;
+
+  protected defaultJSON(): IEntityAttributes {
+    return {
+      id: this.id,
+      created: this.created,
+      events: this.events,
+      updated: this.updated,
+      version: this.version,
+    };
+  }
 
   protected addEvent(name: string, payload: Record<string, any>): void {
     this.events.push({

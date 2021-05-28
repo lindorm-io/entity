@@ -1,16 +1,31 @@
+import Joi from "joi";
 import MockDate from "mockdate";
 import { EntityBase } from "./EntityBase";
-import { IEntityBaseOptions } from "../typing";
+import { IEntityAttributes, IEntityOptions } from "../typing";
+import { JOI_ENTITY_BASE } from "../schema";
 
-jest.mock("uuid", () => ({
-  v4: () => "e397bc49-849e-4df6-a536-7b9fa3574ace",
-}));
+MockDate.set("2020-01-01T10:00:00.000Z");
 
-MockDate.set("2020-01-01T08:00:00.000Z");
+interface ITestEntityAttributes extends IEntityAttributes {
+  name: string;
+}
 
-class Entity extends EntityBase<any> {
-  constructor(options: IEntityBaseOptions) {
+interface ITestEntityOptions extends IEntityOptions {
+  name: string;
+}
+
+const schema = Joi.object({
+  ...JOI_ENTITY_BASE,
+  name: Joi.string().required(),
+});
+
+class TestEntity extends EntityBase<ITestEntityAttributes> {
+  public readonly name: string;
+
+  constructor(options: ITestEntityOptions) {
     super(options);
+
+    this.name = options.name;
   }
 
   create() {
@@ -22,27 +37,25 @@ class Entity extends EntityBase<any> {
   }
 
   async schemaValidation() {
-    return undefined;
+    return await schema.validateAsync(this.toJSON());
   }
 
   toJSON() {
     return {
-      id: this.id,
-      created: this.created,
-      events: this.events,
-      updated: this.updated,
-      version: this.version,
+      ...this.defaultJSON(),
+      name: this.name,
     };
   }
 }
 
-describe("EntityBase.ts", () => {
-  let entity: Entity;
+describe("EntityBase", () => {
+  let entity: TestEntity;
 
   beforeEach(() => {
-    entity = new Entity({
+    entity = new TestEntity({
+      id: "e397bc49-849e-4df6-a536-7b9fa3574ace",
       created: new Date("2020-01-01T07:00:00.000Z"),
-      updated: new Date("2020-01-01T09:00:00.000Z"),
+      name: "name",
       events: [
         {
           name: "before",
@@ -50,6 +63,8 @@ describe("EntityBase.ts", () => {
           date: new Date("2020-01-01T08:00:00.000Z"),
         },
       ],
+      updated: new Date("2020-01-01T09:00:00.000Z"),
+      version: 0,
     });
   });
 
@@ -71,6 +86,10 @@ describe("EntityBase.ts", () => {
     expect(entity.events).toMatchSnapshot();
   });
 
+  test("should get name", () => {
+    expect(entity.name).toBe("name");
+  });
+
   test("should get/set version", () => {
     expect(entity.version).toBe(0);
     entity.version = 99;
@@ -87,7 +106,7 @@ describe("EntityBase.ts", () => {
   });
 
   test("should validate schema", async () => {
-    await expect(entity.schemaValidation()).resolves.toBeUndefined();
+    await expect(entity.schemaValidation()).resolves.toMatchSnapshot();
   });
 
   test("should return to json", () => {
