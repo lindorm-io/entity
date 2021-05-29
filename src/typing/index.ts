@@ -20,9 +20,9 @@ export interface IEntityOptions {
   version?: number;
 }
 
-export interface IEntity extends IEntityAttributes {
+export interface IEntity<Attributes extends IEntityAttributes> extends IEntityAttributes {
   create(): void;
   getKey(): string;
   schemaValidation(): Promise<void>;
-  toJSON(): void;
+  toJSON(): Attributes;
 }

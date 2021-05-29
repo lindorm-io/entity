@@ -1,7 +1,7 @@
 import Joi from "joi";
 import MockDate from "mockdate";
 import { EntityBase } from "./EntityBase";
-import { IEntityAttributes, IEntityOptions } from "../typing";
+import { IEntity, IEntityAttributes, IEntityOptions } from "../typing";
 import { JOI_ENTITY_BASE } from "../schema";
 
 MockDate.set("2020-01-01T10:00:00.000Z");
@@ -14,12 +14,14 @@ interface ITestEntityOptions extends IEntityOptions {
   name: string;
 }
 
+interface ITestEntity extends IEntity<ITestEntityAttributes> {}
+
 const schema = Joi.object({
   ...JOI_ENTITY_BASE,
   name: Joi.string().required(),
 });
 
-class TestEntity extends EntityBase<ITestEntityAttributes> {
+class TestEntity extends EntityBase<ITestEntityAttributes> implements ITestEntity {
   public readonly name: string;
 
   constructor(options: ITestEntityOptions) {

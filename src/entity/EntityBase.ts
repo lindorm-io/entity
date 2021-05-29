@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { IEntity, IEntityAttributes, IEntityOptions, IEntityEvent } from "../typing";
 
-export abstract class EntityBase<Attributes extends IEntityAttributes> implements IEntity {
+export abstract class EntityBase<Attributes extends IEntityAttributes> implements IEntity<Attributes> {
   public readonly id: string;
   public readonly created: Date;
   public readonly events: Array<IEntityEvent>;
