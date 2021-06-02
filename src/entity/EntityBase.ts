@@ -1,14 +1,14 @@
 import { v4 as uuid } from "uuid";
-import { IEntity, IEntityAttributes, IEntityOptions, IEntityEvent } from "../typing";
+import { IEntity, EntityAttributes, EntityOptions, EntityEvent } from "../typing";
 
-export abstract class EntityBase<Attributes extends IEntityAttributes> implements IEntity<Attributes> {
+export abstract class EntityBase<Attributes extends EntityAttributes> implements IEntity<Attributes> {
   public readonly id: string;
   public readonly created: Date;
-  public readonly events: Array<IEntityEvent>;
+  public readonly events: Array<EntityEvent>;
   protected _updated: Date;
   protected _version: number;
 
-  protected constructor(options: IEntityOptions = {}) {
+  protected constructor(options: EntityOptions = {}) {
     this.id = options.id || uuid();
     this.created = options.created || new Date();
     this.events = options.events || [];
@@ -39,7 +39,7 @@ export abstract class EntityBase<Attributes extends IEntityAttributes> implement
 
   public abstract toJSON(): Attributes;
 
-  protected defaultJSON(): IEntityAttributes {
+  protected defaultJSON(): EntityAttributes {
     return {
       id: this.id,
       created: this.created,

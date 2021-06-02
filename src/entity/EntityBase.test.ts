@@ -1,30 +1,30 @@
 import Joi from "joi";
 import MockDate from "mockdate";
 import { EntityBase } from "./EntityBase";
-import { IEntity, IEntityAttributes, IEntityOptions } from "../typing";
+import { IEntity, EntityAttributes, EntityOptions } from "../typing";
 import { JOI_ENTITY_BASE } from "../schema";
 
 MockDate.set("2020-01-01T10:00:00.000Z");
 
-interface ITestEntityAttributes extends IEntityAttributes {
+interface TestEntityAttributes extends EntityAttributes {
   name: string;
 }
 
-interface ITestEntityOptions extends IEntityOptions {
+interface TestEntityOptions extends EntityOptions {
   name: string;
 }
 
-interface ITestEntity extends IEntity<ITestEntityAttributes> {}
+interface ITestEntity extends IEntity<TestEntityAttributes> {}
 
 const schema = Joi.object({
   ...JOI_ENTITY_BASE,
   name: Joi.string().required(),
 });
 
-class TestEntity extends EntityBase<ITestEntityAttributes> implements ITestEntity {
+class TestEntity extends EntityBase<TestEntityAttributes> implements ITestEntity {
   public readonly name: string;
 
-  constructor(options: ITestEntityOptions) {
+  constructor(options: TestEntityOptions) {
     super(options);
 
     this.name = options.name;
