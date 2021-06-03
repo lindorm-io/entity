@@ -44,7 +44,6 @@
     "joi": "^17.4.0",
     "uuid": "^8.3.2"
   },
-  "peerDependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/joi": "^17.2.3",
