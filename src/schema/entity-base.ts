@@ -10,8 +10,8 @@ export const JOI_EVENTS = Joi.array().items(
 
 export const JOI_ENTITY_BASE = {
   id: Joi.string().guid({ version: "uuidv4", separator: "-" }).required(),
-  created: Joi.date().required(),
+  created: Joi.date().iso().required(),
   events: JOI_EVENTS.required(),
-  updated: Joi.date().required(),
+  updated: Joi.date().iso().required(),
   version: Joi.number().integer().min(0).required(),
 };
