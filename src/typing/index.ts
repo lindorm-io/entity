@@ -20,7 +20,7 @@ export interface EntityOptions {
   version?: number | null;
 }
 
-export interface IEntity<Attributes extends EntityAttributes> extends EntityAttributes {
+export interface ILindormEntity<Attributes extends EntityAttributes> extends EntityAttributes {
   create(): void;
   getKey(): string;
   schemaValidation(): Promise<void>;

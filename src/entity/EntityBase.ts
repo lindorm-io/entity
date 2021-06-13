@@ -1,7 +1,7 @@
-import { EntityAttributes, EntityEvent, EntityOptions, IEntity } from "../typing";
+import { EntityAttributes, EntityEvent, EntityOptions } from "../typing";
 import { v4 as uuid } from "uuid";
 
-export abstract class EntityBase<Attributes extends EntityAttributes> implements IEntity<Attributes> {
+export abstract class EntityBase {
   public readonly id: string;
   public readonly created: Date;
   public readonly events: Array<EntityEvent>;
@@ -30,14 +30,6 @@ export abstract class EntityBase<Attributes extends EntityAttributes> implements
   public set version(version: number) {
     this._version = version;
   }
-
-  public abstract create(): void;
-
-  public abstract getKey(): string;
-
-  public abstract schemaValidation(): Promise<void>;
-
-  public abstract toJSON(): Attributes;
 
   protected defaultJSON(): EntityAttributes {
     return {

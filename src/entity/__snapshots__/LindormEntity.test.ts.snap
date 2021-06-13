@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EntityBase should create 1`] = `
+exports[`LindormEntity should create 1`] = `
 Array [
   Object {
     "date": 2020-01-01T08:00:00.000Z,
@@ -19,7 +19,7 @@ Array [
 ]
 `;
 
-exports[`EntityBase should get events 1`] = `
+exports[`LindormEntity should get events 1`] = `
 Array [
   Object {
     "date": 2020-01-01T08:00:00.000Z,
@@ -31,7 +31,7 @@ Array [
 ]
 `;
 
-exports[`EntityBase should return to json 1`] = `
+exports[`LindormEntity should return to json 1`] = `
 Object {
   "created": 2020-01-01T07:00:00.000Z,
   "events": Array [
@@ -50,7 +50,7 @@ Object {
 }
 `;
 
-exports[`EntityBase should validate schema 1`] = `
+exports[`LindormEntity should validate schema 1`] = `
 Object {
   "created": 2020-01-01T07:00:00.000Z,
   "events": Array [

@@ -1,7 +1,7 @@
 import Joi from "joi";
 import MockDate from "mockdate";
-import { EntityBase } from "./EntityBase";
-import { IEntity, EntityAttributes, EntityOptions } from "../typing";
+import { LindormEntity } from "./LindormEntity";
+import { ILindormEntity, EntityAttributes, EntityOptions } from "../typing";
 import { JOI_ENTITY_BASE } from "../schema";
 
 MockDate.set("2020-01-01T10:00:00.000Z");
@@ -14,14 +14,14 @@ interface TestEntityOptions extends EntityOptions {
   name: string;
 }
 
-interface ITestEntity extends IEntity<TestEntityAttributes> {}
+interface ITestEntity extends ILindormEntity<TestEntityAttributes> {}
 
 const schema = Joi.object({
   ...JOI_ENTITY_BASE,
   name: Joi.string().required(),
 });
 
-class TestEntity extends EntityBase<TestEntityAttributes> implements ITestEntity {
+class TestEntity extends LindormEntity<TestEntityAttributes> implements ITestEntity {
   public readonly name: string;
 
   constructor(options: TestEntityOptions) {
@@ -50,7 +50,7 @@ class TestEntity extends EntityBase<TestEntityAttributes> implements ITestEntity
   }
 }
 
-describe("EntityBase", () => {
+describe("LindormEntity", () => {
   let entity: TestEntity;
 
   beforeEach(() => {
