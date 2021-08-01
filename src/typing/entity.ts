@@ -6,6 +6,8 @@ export interface EntityEvent {
   date: Date;
 }
 
+export type EntityKeys = "id" | "created" | "events" | "updated" | "version";
+
 export interface EntityAttributes {
   id: string;
   created: Date;
@@ -14,7 +16,7 @@ export interface EntityAttributes {
   version: number;
 }
 
-export type EntityOptions = Optional<EntityAttributes, "id" | "created" | "events" | "updated" | "version">;
+export type EntityOptions = Optional<EntityAttributes, EntityKeys>;
 
 export interface ILindormEntity<Attributes extends EntityAttributes> extends EntityAttributes {
   create(): void;
