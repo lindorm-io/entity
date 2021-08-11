@@ -34,10 +34,6 @@ class TestEntity extends LindormEntity<TestEntityAttributes> implements ITestEnt
     this.addEvent("created", { created: true });
   }
 
-  getKey() {
-    return this.id;
-  }
-
   async schemaValidation() {
     return await schema.validateAsync(this.toJSON());
   }
@@ -101,10 +97,6 @@ describe("LindormEntity", () => {
   test("should create", () => {
     entity.create();
     expect(entity.events).toMatchSnapshot();
-  });
-
-  test("should return key", () => {
-    expect(entity.getKey()).toBe("e397bc49-849e-4df6-a536-7b9fa3574ace");
   });
 
   test("should validate schema", async () => {

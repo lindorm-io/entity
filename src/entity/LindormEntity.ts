@@ -11,8 +11,6 @@ export abstract class LindormEntity<Attributes extends EntityAttributes>
 
   public abstract create(): void;
 
-  public abstract getKey(): string;
-
   public abstract schemaValidation(): Promise<void>;
 
   public abstract toJSON(): Attributes;

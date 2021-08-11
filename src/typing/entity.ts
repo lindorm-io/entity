@@ -20,7 +20,6 @@ export type EntityOptions = Optional<EntityAttributes, EntityKeys>;
 
 export interface ILindormEntity<Attributes extends EntityAttributes> extends EntityAttributes {
   create(): void;
-  getKey(): string;
   schemaValidation(): Promise<void>;
   toJSON(): Attributes;
 }
